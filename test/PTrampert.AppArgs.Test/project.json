@@ -19,5 +19,9 @@
       "imports": "dnxcore50"
     }
   },
-  "testRunner": "xunit"
+  "testRunner": "xunit",
+  "buildOptions": {
+    "compile": "**/*.cs",
+    "debugType": "portable"
+  }
 }
