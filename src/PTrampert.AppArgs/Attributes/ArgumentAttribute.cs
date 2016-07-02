@@ -24,6 +24,9 @@ namespace PTrampert.AppArgs.Attributes
         /// </summary>
         public string DefaultValue { get; set; }
 
+        /// <summary>
+        /// A human readable display name for the argument. Used in generated -h|--help documentation and error messages.
+        /// </summary>
         public string Name { get; set; }
 
         public ArgumentAttribute(int order)

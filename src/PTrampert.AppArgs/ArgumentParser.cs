@@ -23,7 +23,7 @@ namespace PTrampert.AppArgs
             foreach (var prop in _argumentProperties)
             {
                 var attrib = prop.GetCustomAttribute<ArgumentAttribute>();
-                if (args.Length >= attrib.Order)
+                if (args.Length <= attrib.Order)
                 {
                     if (attrib.IsRequired)
                     {
@@ -37,20 +37,26 @@ namespace PTrampert.AppArgs
                     prop.SetValue(obj, args[attrib.Order]);
                     continue;
                 }
-                var parseMethod = propertyType.GetRuntimeMethod("Parse", new[] {typeof(string)}) ??
-                                  propertyType.GetRuntimeMethod("Parse", new[] {typeof(Type), typeof(string)});
+
+                if (propertyType.GetTypeInfo().IsEnum) 
+                {
+                    prop.SetValue(obj, Enum.Parse(propertyType, args[attrib.Order]));
+                    continue;
+                }
+
+                var parseMethod = propertyType.GetRuntimeMethod("Parse", new[] { typeof(string) });
                 if (parseMethod == null || !parseMethod.IsStatic)
                 {
                     throw new UnparseableArgumentException(attrib.Name ?? prop.Name);
                 }
                 if (parseMethod.GetParameters().Length == 1)
                 {
-                    var value = parseMethod.Invoke(null, new[] {args[attrib.Order]});
+                    var value = parseMethod.Invoke(null, new[] { args[attrib.Order] });
                     prop.SetValue(obj, value);
                 }
                 else
                 {
-                    var value = parseMethod.Invoke(null, new object[] {prop.PropertyType, args[attrib.Order]});
+                    var value = parseMethod.Invoke(null, new object[] { propertyType, args[attrib.Order] });
                     prop.SetValue(obj, value);
                 }
             }
