@@ -7,7 +7,7 @@ namespace PTrampert.AppArgs.Exceptions
     /// </summary>
     public class ParsingException : Exception 
     {
-        internal ParsingException(string name, Exception e = null) : base($"Error parsing argument {name}", e)
+        internal ParsingException(string name, Exception e = null) : base($"Error parsing {name}", e)
         {
 
         }

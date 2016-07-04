@@ -25,11 +25,6 @@ namespace PTrampert.AppArgs.Attributes
         /// <summary>
         /// Short name of the option. To use this option from the command line, you would call it with '-ShortName'
         /// </summary>
-        public char? ShortName { get; set; }
-
-        /// <summary>
-        /// Boolean indicating whether or not this option is required.
-        /// </summary>
-        public bool IsRequired { get; set; }
+        public string ShortName { get; set; }
     }
 }
