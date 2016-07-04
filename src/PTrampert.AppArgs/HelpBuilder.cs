@@ -27,13 +27,14 @@ namespace PTrampert.AppArgs
             {
                 usageBuilder.Append(" <ARGUMENTS>");
                 argumentsBuilder.AppendLine("--ARGUMENTS--");
-                argumentsBuilder.AppendLine($"{"Order".PadRight(6)}{"Name".PadRight(20)}{"Required".PadRight(10)}Description");
+                argumentsBuilder.AppendLine($"{"Order".PadRight(6)}{"Name".PadRight(20)}{"Is Required?".PadRight(13)}Description");
+                argumentsBuilder.AppendLine($"{"-----".PadRight(6)}{"----".PadRight(20)}{"------------".PadRight(13)}-----------");
                 foreach(var prop in properties.Where(p => p.GetCustomAttribute<ArgumentAttribute>() != null).OrderBy(p => p.GetCustomAttribute<ArgumentAttribute>().Order))
                 {
                     var attrib = prop.GetCustomAttribute<ArgumentAttribute>();
                     var order = attrib.Order.ToString().PadRight(6);
                     var argName = (attrib.Name ?? prop.Name).PadRight(20);
-                    var required = (attrib.IsRequired ? "x" : "").PadRight(10);
+                    var required = (attrib.IsRequired ? "x" : "").PadRight(13);
                     argumentsBuilder.AppendLine($"{order}{argName}{required}{attrib.Description}");
                 }
             }
@@ -42,6 +43,7 @@ namespace PTrampert.AppArgs
                 usageBuilder.Append(" [OPTIONS]");
                 optionsBuilder.AppendLine("--OPTIONS--");
                 optionsBuilder.AppendLine($"{"Option".PadRight(30)}Description");
+                optionsBuilder.AppendLine($"{"------".PadRight(30)}-----------");
                 foreach(var prop in properties.Where(p => p.GetCustomAttribute<OptionAttribute>() != null).OrderBy(p => p.GetCustomAttribute<OptionAttribute>().Name ?? p.Name))
                 {
                     var attrib = prop.GetCustomAttribute<OptionAttribute>();
