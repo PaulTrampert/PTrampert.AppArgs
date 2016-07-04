@@ -20,6 +20,7 @@ namespace PTrampert.AppArgs
         /// <summary>
         /// Initializes an option parser.
         /// </summary>
+        /// <param name="strict">Whether or not strict parsing rules should be used. Defaults to true.</param>
         public OptionParser(bool strict = true)
         {
             _strict = strict;
