@@ -73,9 +73,17 @@ namespace PTrampert.AppArgs
                 else
                 {
                     i++;
-                    var stringVal = i == args.Length ? "" : args[i];
+                    if (i == args.Length) continue;
+                    var stringVal = args[i];
                     var parseMethod = prop.PropertyType.GetParseMethod();
-                    prop.SetValue(obj, parseMethod(stringVal));
+                    try
+                    {
+                        prop.SetValue(obj, parseMethod(stringVal));
+                    }
+                    catch (Exception e)
+                    {
+                        throw new ParsingException(option, e);
+                    }
                 }
             }
             return obj;
