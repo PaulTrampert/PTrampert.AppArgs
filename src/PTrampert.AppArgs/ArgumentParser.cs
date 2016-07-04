@@ -11,7 +11,7 @@ namespace PTrampert.AppArgs
     /// <summary>
     /// Parser for parsing ordered arguments.
     /// </summary>
-    public class ArgumentParser<T> where T : new()
+    public class ArgumentParser<T> : ICliParser<T> where T : new()
     {
         private IEnumerable<PropertyInfo> _argumentProperties;
 
@@ -24,6 +24,16 @@ namespace PTrampert.AppArgs
             _argumentProperties = type.GetRuntimeProperties().Where(pi => pi.GetCustomAttribute<ArgumentAttribute>() != null)
                 .OrderBy(pi => pi.GetCustomAttribute<ArgumentAttribute>().Order);
             ArgumentAttributeValidator.ValidateAttributes(_argumentProperties);
+        }
+
+        /// <summary>
+        /// Parse ordered arguments into the given object.
+        /// </summary>
+        /// <param name="args">Command line arguments.</param>
+        /// <returns>The populated object.</returns>
+        public T Parse(string[] args)
+        {
+            return Parse(args, new T());
         }
 
         /// <summary>

@@ -11,7 +11,7 @@ namespace PTrampert.AppArgs
     /// <summary>
     /// Parser for parsing command line options.
     /// </summary>
-    public class OptionParser<T> where T : new()
+    public class OptionParser<T> : ICliParser<T> where T : new()
     {
         private IEnumerable<PropertyInfo> _optionProperties;
 
@@ -26,6 +26,16 @@ namespace PTrampert.AppArgs
             var type = typeof(T);
             _optionProperties = type.GetRuntimeProperties().Where(pi => pi.GetCustomAttribute<OptionAttribute>() != null);
             OptionAttributeValidator.ValidateOptionAttributes(_optionProperties);
+        }
+
+        /// <summary>
+        /// Parse command line options into the given object.
+        /// </summary>
+        /// <param name="args">Command line arguments.</param>
+        /// <returns>The populated object.</returns>
+        public T Parse(string[] args)
+        {
+            return Parse(args, new T());
         }
 
         /// <summary>
