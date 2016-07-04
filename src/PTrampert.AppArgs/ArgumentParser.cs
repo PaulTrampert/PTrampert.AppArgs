@@ -49,7 +49,8 @@ namespace PTrampert.AppArgs
                 try 
                 {
                     prop.SetValue(obj, parseMethod(args[attrib.Order]));
-                } catch (Exception e) 
+                } 
+                catch (Exception e) 
                 {
                     throw new ParsingException(attrib.Name ?? prop.Name, e);
                 }
