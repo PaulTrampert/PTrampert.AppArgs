@@ -39,24 +39,5 @@ namespace PTrampert.AppArgs.Attributes
             Order = order;
             IsRequired = true;
         }
-
-        internal Func<string, object> GetParseMethod(PropertyInfo prop) 
-        {
-            var propType = prop.PropertyType;
-            if (propType == typeof(string)) 
-            {
-                return (arg) => arg;
-            }
-            if (propType.GetTypeInfo().IsEnum) 
-            {
-                return (arg) => Enum.Parse(propType, arg);
-            }
-            var parseMethod = propType.GetRuntimeMethod("Parse", new []{typeof(string)});
-            if (parseMethod != null && parseMethod.IsStatic) 
-            {
-                return (arg) => parseMethod.Invoke(null, new[]{arg});
-            }
-            return null;
-        }
     }
 }

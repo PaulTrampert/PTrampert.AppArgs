@@ -9,10 +9,10 @@ namespace PTrampert.AppArgs.Attributes
     /// </summary>
     /// <example>
     /// An option specified with the following attribute:
-    /// <code>
+    /// <c>
     /// [Option(Name = "test", ShortName = 't')]
-    /// </code>
-    /// Would be specified in the command line by either <code>--test</code> or <code>-t</code>.
+    /// </c>
+    /// Would be specified in the command line by either <c>--test</c> or <c>-t</c>.
     /// </example>
     [AttributeUsage(AttributeTargets.Property)]
     public class OptionAttribute : Attribute

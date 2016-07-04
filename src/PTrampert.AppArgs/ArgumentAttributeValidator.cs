@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using PTrampert.AppArgs.Attributes;
 using PTrampert.AppArgs.Exceptions;
+using PTrampert.AppArgs.Extensions;
 
 namespace PTrampert.AppArgs
 {
@@ -30,7 +31,7 @@ namespace PTrampert.AppArgs
         private static void ValidateParseable(ArgumentAttribute attrib, PropertyInfo prop)
         {
             var propType = prop.PropertyType;
-            if (attrib.GetParseMethod(prop) == null) 
+            if (propType.GetParseMethod() == null) 
             {
                 throw new UnparseableArgumentException(attrib.Name ?? prop.Name);
             }

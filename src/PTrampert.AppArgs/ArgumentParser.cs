@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using PTrampert.AppArgs.Attributes;
 using PTrampert.AppArgs.Exceptions;
+using PTrampert.AppArgs.Extensions;
 
 namespace PTrampert.AppArgs
 {
@@ -44,7 +45,7 @@ namespace PTrampert.AppArgs
                     }
                     break;
                 }
-                var parseMethod = attrib.GetParseMethod(prop);
+                var parseMethod = prop.PropertyType.GetParseMethod();
                 try 
                 {
                     prop.SetValue(obj, parseMethod(args[attrib.Order]));
