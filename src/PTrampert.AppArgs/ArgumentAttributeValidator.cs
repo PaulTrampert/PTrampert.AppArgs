@@ -13,11 +13,26 @@ namespace PTrampert.AppArgs
             foreach (var prop in props)
             {
                 var attrib = prop.GetCustomAttribute<ArgumentAttribute>();
-                if (!required && attrib.IsRequired)
-                {
-                    throw new RequiredArgumentAfterOptionalException(attrib.Name ?? prop.Name);
-                }
+                ValidateRequired(attrib, prop, required);
                 required = attrib.IsRequired;
+                ValidateParseable(attrib, prop);
+            }
+        }
+
+        private static void ValidateRequired(ArgumentAttribute attrib, PropertyInfo prop, bool required) 
+        {
+            if (!required && attrib.IsRequired)
+            {
+                throw new RequiredArgumentAfterOptionalException(attrib.Name ?? prop.Name);
+            }
+        }
+
+        private static void ValidateParseable(ArgumentAttribute attrib, PropertyInfo prop)
+        {
+            var propType = prop.PropertyType;
+            if (propType != typeof(string) && !propType.GetTypeInfo().IsEnum && propType.GetRuntimeMethod("Parse", new [] {typeof(string)}) == null) 
+            {
+                throw new UnparseableArgumentException(attrib.Name ?? prop.Name);
             }
         }
     }

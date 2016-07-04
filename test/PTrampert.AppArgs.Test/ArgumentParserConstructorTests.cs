@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Xunit;
-using PTrampert.AppArgs;
+﻿using Xunit;
 using PTrampert.AppArgs.Attributes;
 using PTrampert.AppArgs.Exceptions;
+using System.IO;
 
 namespace PTrampert.AppArgs.Test
 {
@@ -24,6 +19,13 @@ namespace PTrampert.AppArgs.Test
         {
             var parser = new ArgumentParser<GoodArgumentsClass>();
             Assert.False(parser == null);
+        }
+
+        [Fact]
+        public void ShouldThrowWhenArgumentAttachedToUnparseableProperty() 
+        {
+            var exception = Assert.Throws<UnparseableArgumentException>(() => new ArgumentParser<UnparsableArgument>());
+            Assert.Equal("The argument File cannot be parsed.", exception.Message);
         }
     }
 
@@ -43,5 +45,11 @@ namespace PTrampert.AppArgs.Test
 
         [Argument(1, IsRequired = false)]
         public string Test2 { get; set; }
+    }
+
+    public class UnparsableArgument
+    {
+        [Argument(0)]
+        public Stream File {get;set;}
     }
 }
