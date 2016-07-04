@@ -20,14 +20,14 @@ namespace PTrampert.AppArgs.Attributes
         public bool IsRequired { get; set; }
 
         /// <summary>
-        /// String specifying the default value. If applied to a non-string property, the default value will be parsed to the appropriate type.
-        /// </summary>
-        public string DefaultValue { get; set; }
-
-        /// <summary>
         /// A human readable display name for the argument. Used in generated -h|-help documentation and error messages.
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// A description of the argument's purpose. Used in the auto-generated help text. 
+        /// </summary>
+        public string Description { get; set; }
 
         /// <summary>
         /// Marks a property as a command line argument.

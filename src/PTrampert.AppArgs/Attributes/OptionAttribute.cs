@@ -18,13 +18,18 @@ namespace PTrampert.AppArgs.Attributes
     public class OptionAttribute : Attribute
     {
         /// <summary>
-        /// Name of the option. To use this option from the command line, you would call it with '--Name'
+        /// Name of the option. To use this option from the command line, you would call it with <c>-Name</c>
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Short name of the option. To use this option from the command line, you would call it with '-ShortName'
+        /// Short name of the option. To use this option from the command line, you would call it with <c>-ShortName</c>
         /// </summary>
         public string ShortName { get; set; }
+
+        /// <summary>
+        /// A short description of the option for use in the <c>-h|-help</c> output.
+        /// </summary>
+        public string Description { get; set; }
     }
 }
