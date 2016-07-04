@@ -37,9 +37,9 @@ namespace PTrampert.AppArgs.Test
         [Fact]
         public void CanParseOnPropertyName() 
         {
-            var args = new []{"-StringArg", "some value"};
+            var args = new []{"-EnumArg", "Test2"};
             var opts = Subject.Parse(args, new SampleOpts());
-            Assert.Equal("some value", opts.StringArg);
+            Assert.Equal(SampleEnum.Test2, opts.EnumArg);
         }
 
         [Fact]

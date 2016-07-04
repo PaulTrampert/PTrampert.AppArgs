@@ -49,7 +49,7 @@ namespace PTrampert.AppArgs
                         prop = _optionProperties.Where(p =>
                         {
                             var attr = p.GetCustomAttribute<OptionAttribute>();
-                            return attr.Name == option || attr.ShortName == option || p.Name == option;
+                            return (attr.Name ?? p.Name) == option || attr.ShortName == option;
                         }).Single();
                         attrib = prop.GetCustomAttribute<OptionAttribute>();
                     }
