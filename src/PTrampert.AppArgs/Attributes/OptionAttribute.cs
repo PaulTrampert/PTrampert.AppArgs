@@ -17,10 +17,19 @@ namespace PTrampert.AppArgs.Attributes
     [AttributeUsage(AttributeTargets.Property)]
     public class OptionAttribute : Attribute
     {
+        /// <summary>
+        /// Name of the option. To use this option from the command line, you would call it with '--Name'
+        /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Short name of the option. To use this option from the command line, you would call it with '-ShortName'
+        /// </summary>
         public char? ShortName { get; set; }
 
-        public bool Required { get; set; }
+        /// <summary>
+        /// Boolean indicating whether or not this option is required.
+        /// </summary>
+        public bool IsRequired { get; set; }
     }
 }
