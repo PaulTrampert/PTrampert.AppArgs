@@ -7,9 +7,16 @@ using PTrampert.AppArgs.Exceptions;
 
 namespace PTrampert.AppArgs
 {
+    /// <summary>
+    /// Parser for parsing ordered arguments.
+    /// </summary>
     public class ArgumentParser<T> where T : new()
     {
         private IEnumerable<PropertyInfo> _argumentProperties;
+
+        /// <summary>
+        /// Initializes an argument parser.
+        /// </summary>
         public ArgumentParser()
         {
             var type = typeof(T);
@@ -18,6 +25,12 @@ namespace PTrampert.AppArgs
             ArgumentAttributeValidator.ValidateAttributes(_argumentProperties);
         }
 
+        /// <summary>
+        /// Parse ordered arguments into the given object.
+        /// </summary>
+        /// <param name="args">Command line arguments.</param>
+        /// <param name="obj">The object to store the arguments in.</param>
+        /// <returns>The populated object.</returns>
         public T Parse(string[] args, T obj)
         {
             foreach (var prop in _argumentProperties)
@@ -31,33 +44,13 @@ namespace PTrampert.AppArgs
                     }
                     break;
                 }
-                var propertyType = prop.PropertyType;
-                if (propertyType == typeof(string))
+                var parseMethod = attrib.GetParseMethod(prop);
+                try 
                 {
-                    prop.SetValue(obj, args[attrib.Order]);
-                    continue;
-                }
-
-                if (propertyType.GetTypeInfo().IsEnum) 
+                    prop.SetValue(obj, parseMethod(args[attrib.Order]));
+                } catch (Exception e) 
                 {
-                    prop.SetValue(obj, Enum.Parse(propertyType, args[attrib.Order]));
-                    continue;
-                }
-
-                var parseMethod = propertyType.GetRuntimeMethod("Parse", new[] { typeof(string) });
-                if (parseMethod == null || !parseMethod.IsStatic)
-                {
-                    throw new UnparseableArgumentException(attrib.Name ?? prop.Name);
-                }
-                if (parseMethod.GetParameters().Length == 1)
-                {
-                    var value = parseMethod.Invoke(null, new[] { args[attrib.Order] });
-                    prop.SetValue(obj, value);
-                }
-                else
-                {
-                    var value = parseMethod.Invoke(null, new object[] { propertyType, args[attrib.Order] });
-                    prop.SetValue(obj, value);
+                    throw new ParsingException(attrib.Name ?? prop.Name, e);
                 }
             }
             return obj;

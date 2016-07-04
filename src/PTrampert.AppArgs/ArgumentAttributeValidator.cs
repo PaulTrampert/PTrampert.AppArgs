@@ -30,7 +30,7 @@ namespace PTrampert.AppArgs
         private static void ValidateParseable(ArgumentAttribute attrib, PropertyInfo prop)
         {
             var propType = prop.PropertyType;
-            if (propType != typeof(string) && !propType.GetTypeInfo().IsEnum && propType.GetRuntimeMethod("Parse", new [] {typeof(string)}) == null) 
+            if (attrib.GetParseMethod(prop) == null) 
             {
                 throw new UnparseableArgumentException(attrib.Name ?? prop.Name);
             }

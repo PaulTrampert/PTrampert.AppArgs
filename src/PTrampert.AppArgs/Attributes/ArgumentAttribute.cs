@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace PTrampert.AppArgs.Attributes
 {
@@ -29,10 +30,33 @@ namespace PTrampert.AppArgs.Attributes
         /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Marks a property as a command line argument.
+        /// </summary>
+        /// <param name="order">The position at which to find the argument in the args array.</param>
         public ArgumentAttribute(int order)
         {
             Order = order;
             IsRequired = true;
+        }
+
+        internal Func<string, object> GetParseMethod(PropertyInfo prop) 
+        {
+            var propType = prop.PropertyType;
+            if (propType == typeof(string)) 
+            {
+                return (arg) => arg;
+            }
+            if (propType.GetTypeInfo().IsEnum) 
+            {
+                return (arg) => Enum.Parse(propType, arg);
+            }
+            var parseMethod = propType.GetRuntimeMethod("Parse", new []{typeof(string)});
+            if (parseMethod != null && parseMethod.IsStatic) 
+            {
+                return (arg) => parseMethod.Invoke(null, new[]{arg});
+            }
+            return null;
         }
     }
 }
