@@ -1,5 +1,9 @@
 {
   "version": "1.0.1-*",
+  "authors": [
+    "Paul Trampert"
+  ],
+  "projectUrl": "https://github.com/PaulTrampert/PTrampert.AppArgs",
   "dependencies": {
     "NETStandard.Library": "1.6.*"
   },
@@ -15,5 +19,16 @@
     "compile": "**/*.cs",
     "debugType": "portable",
     "xmlDoc": true
+  },
+  "packOptions": {
+    "licenseUrl": "https://opensource.org/licenses/MIT",
+    "owners": [
+      "Paul Trampert"
+    ],
+    "tags": [
+      "CommandLine",
+      "Parsing",
+      "CLI"
+    ],
   }
 }
