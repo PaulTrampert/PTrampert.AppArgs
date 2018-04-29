@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <VersionPrefix>1.0.2</VersionPrefix>
+    <Authors>Paul Trampert</Authors>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageId>PTrampert.AppArgs</PackageId>
+    <PackageTags>CommandLine;Parsing;CLI</PackageTags>
+    <PackageProjectUrl>https://github.com/PaulTrampert/PTrampert.AppArgs</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/PaulTrampert/PTrampert.AppArgs/blob/master/LICENSE</PackageLicenseUrl>
+    <NetStandardImplicitPackageVersion>1.6.*</NetStandardImplicitPackageVersion>
+  </PropertyGroup>
+</Project>

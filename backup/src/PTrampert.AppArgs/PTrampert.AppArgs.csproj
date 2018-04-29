@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <VersionPrefix>1.0.2</VersionPrefix>
+    <Authors>Paul Trampert</Authors>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <DebugType>portable</DebugType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>PTrampert.AppArgs</AssemblyName>
+    <PackageId>PTrampert.AppArgs</PackageId>
+    <PackageTags>CommandLine;Parsing;CLI</PackageTags>
+    <PackageProjectUrl>https://github.com/PaulTrampert/PTrampert.AppArgs</PackageProjectUrl>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <NetStandardImplicitPackageVersion>1.6.*</NetStandardImplicitPackageVersion>
+    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="dotnet-version" Version="1.1.0" />
+  </ItemGroup>
+
+</Project>
